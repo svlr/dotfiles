@@ -1,0 +1,10 @@
+#!/bin/bash
+
+yes | yes | sudo pacman -Scc 
+sudo pacman -Qqdt | sudo pacman -Rsn -
+rm -rf ~/.cache/mozilla/firefox/*.default
+sudo truncate -s 0 /var/log/pacman.log
+sudo rm -rf /tmp/*
+fc-cache -frv
+sudo rm -rf ~/.cache/fontconfig/*
+
