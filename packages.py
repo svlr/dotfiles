@@ -45,10 +45,10 @@ for pkg in required_packages:
 print(f"[+] Недостающих пакетов: {len(missing_packages)}")
 
 if not missing_packages:
-    print("[✓] Всё уже установлено. Алхамдулиллях!")
+    print("[✓] Всё уже установлено.")
     sys.exit(0)
 
 print("[*] Устанавливаю недостающие пакеты через yay...")
 subprocess.run(["yay", "-S", "--needed", "--noconfirm"] + missing_packages)
 
-print("[✓] Установка завершена! Машалла.")
+print("[✓] Установка завершена!")

@@ -1,5 +1,1 @@
-python-i3ipc
-i3lock-color
-
-
 place all scripts at /home/user/MyFiles/usefull_scripts
