@@ -1,2 +1,0 @@
-require("svlr")
-require("plugins")

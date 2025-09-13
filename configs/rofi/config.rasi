@@ -1,0 +1,7 @@
+@theme "~/.config/rofi/not-graphite.rasi"
+
+configuration {
+    modi: "drun";
+    font: "JetBrains Mono 12";
+}
+

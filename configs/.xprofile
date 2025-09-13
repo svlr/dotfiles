@@ -1,0 +1,14 @@
+# Курсор
+export XCURSOR_THEME=Adwaita
+export XCURSOR_SIZE=24
+xsetroot -cursor_name left_ptr
+
+# QT-темы
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=qt5ct
+# Gtk-темы
+export GTK_THEME=Graphite-Dark-compact
+
+export CM_SELECTION=clipboard
+export CM_MAX_CLIPS=100
+export CM_LAUNCHER=rofi

@@ -1,9 +1,0 @@
-{
-  "kanagawa.nvim": { "branch": "master", "commit": "debe91547d7fb1eef34ce26a5106f277fbfdd109" },
-  "lualine.nvim": { "branch": "master", "commit": "b8c23159c0161f4b89196f74ee3a6d02cdc3a955" },
-  "nerdtree": { "branch": "master", "commit": "9b465acb2745beb988eff3c1e4aa75f349738230" },
-  "nvim-autopairs": { "branch": "master", "commit": "23320e75953ac82e559c610bec5a90d9c6dfa743" },
-  "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "vim-matchup": { "branch": "master", "commit": "704c9d98e686836ae1c4b6c4ea5b057ecf5fbbca" },
-  "vim-plugin-ruscmd": { "branch": "master", "commit": "b4c6cf0b4ff76641d84c2ea1e90ab258f8ff7415" }
-}
