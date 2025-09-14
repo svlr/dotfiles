@@ -1,3 +1,5 @@
+wget
+pamixer
 python-i3ipc
 autotiling
 clipmenu
@@ -27,6 +29,7 @@ pavucontrol-gtk3
 picom-ftlabs-git
 polkit-gnome
 polybar
+python
 python-black
 python-colorama
 python-pip

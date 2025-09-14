@@ -21,7 +21,7 @@ gaps outer 0
 smart_gaps off
 
 # ─── Обои и настройки монитора
-exec_always feh --bg-fill /home/svlr/MyFiles/set_of_random_files/feh_wallpaper.png
+exec_always feh --bg-fill ~/MyFiles/wallpapers/feh_wallpaper.png
 exec --no-startup-id bash -c 'sleep 2 && xrandr --output HDMI-2 --mode 1920x1080 --rate 120 --primary'
 
 # ─── Язык, повтор, сенса
@@ -68,6 +68,8 @@ bindsym Mod1+Shift+q exec ~/MyFiles/usefull_scripts/lockscreen.sh
 bindsym Mod1+w exec bash -c 'shutdown now'
 bindsym Mod1+e exec bash -c 'reboot'
 bindsym $mod+v exec --no-startup-id clipmenu
+bindsym $mod+Shift+c exec --no-startup-id pkexec ~/MyFiles/usefull_scripts/clear-dust-in-system
+bindsym Mod1+Right exec --no-startup-id ~/MyFiles/usefull_scripts/wallpapers.py
 
 # ─── Скрины и запись экрана
 bindsym Home exec maim -s | xclip -selection clipboard -t image/png
