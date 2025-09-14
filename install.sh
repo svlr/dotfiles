@@ -29,6 +29,9 @@ else
     echo "✅ yay уже установлен."
 fi
 
+echo "⚙️ Устанавливаю python..."
+sudo pacman -S python
+
 echo "🚀 Запускаю установку зависимостей..."
 python3 install_packages.py
 

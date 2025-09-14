@@ -74,12 +74,16 @@ def install_oh_my_zsh():
         "--unattended --skip-chsh --keep-zshrc"
     )
     subprocess.run(cmd, shell=True, check=True)
-
-    zsh_path = subprocess.run(
-        "which zsh", shell=True, capture_output=True, text=True
-    ).stdout.strip()
-    subprocess.run(f"chsh -s {zsh_path}", shell=True, check=True)
-    print("→ Oh My Zsh установлен, zsh установлен как shell по умолчанию.\n")
+    with open("/etc/shells", "r") as f:
+        shells = [
+            line.strip() for line in f if line.strip() and not line.startswith("#")
+        ]
+    zsh_path = next((s for s in shells if s.endswith("/zsh")), None)
+    if zsh_path:
+        subprocess.run(f"chsh -s {zsh_path}", shell=True, check=True)
+        print(f"→ Установлен {zsh_path} как shell по умолчанию.")
+    else:
+        print("⚠️ Zsh не найден в /etc/shells. chsh не выполнен.")
 
 
 # Установка конфигов

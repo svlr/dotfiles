@@ -55,11 +55,15 @@ def prompt_yes_no(prompt: str) -> bool:
 
 
 def install_packages(packages: list):
-    """Устанавливает список пакетов через yay."""
-    result = subprocess.run(["yay", "-S", "--needed", "--noconfirm"] + packages)
-    if result.returncode != 0:
-        fail("Ошибка при установке пакетов через yay.")
-    print("\n[✓] Установка завершена!")
+    try:
+        result = subprocess.run(["yay", "-S", "--needed"] + packages, check=True)
+        print("\n[✓] Установка завершена!")
+    except subprocess.CalledProcessError:
+        print("\n⚠️ Возник конфликт при установке пакетов через yay.")
+        print(
+            "Попробуйте удалить конфликтующие пакеты вручную и запустить скрипт снова."
+        )
+        sys.exit(1)
 
 
 def main():
