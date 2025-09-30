@@ -1,5 +1,5 @@
 # Курсор
-export XCURSOR_THEME=Adwaita
+export XCURSOR_THEME="Adwaita"
 export XCURSOR_SIZE=24
 xsetroot -cursor_name left_ptr
 
@@ -7,8 +7,23 @@ xsetroot -cursor_name left_ptr
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_STYLE_OVERRIDE=qt5ct
 # Gtk-темы
-export GTK_THEME=Graphite-Dark-compact
+export GTK_THEME=Kanagawa-Yellow-Dark
+export GTK_CSD=0
+export GTK_USE_PORTAL=0
 
+# clipmenu
 export CM_SELECTION=clipboard
 export CM_MAX_CLIPS=100
 export CM_LAUNCHER=rofi
+
+# Раскладка
+setxkbmap -layout us,ru -option grp:caps_toggle
+xset r rate 500 50
+#xinput --set-prop 9 "libinput Accel Profile Enabled" 0 1 0
+#xinput --set-prop 9 "libinput Accel Speed" 0.5
+for id in $(xinput list --id-only | xargs -n1 -I{} sh -c 'xinput list-props {} | grep -q "libinput Accel Speed" && echo {}'); do
+    # Ставим flat профиль
+    xinput --set-prop "$id" "libinput Accel Profile Enabled" 0 1 0
+    # Устанавливаем сенсу
+    xinput --set-prop "$id" "libinput Accel Speed" 0.5
+done

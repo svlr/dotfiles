@@ -1,0 +1,14 @@
+{
+    "border-rgba": "#5E5C4FB3",
+    "border-radius": 12,
+    "border-width": 2,
+    "border-mode": "center",
+    "smart-hide-border": true,
+
+    "disable-version-warning": true,
+
+    "positive-x-offset": 0,
+    "positive-y-offset": 0,
+    "negative-x-offset": 0,
+    "negative-y-offset": 0
+}

@@ -8,7 +8,7 @@ fastfetch
 feh
 firefox
 git-extras
-graphite-gtk-theme-black-compact-git
+ttf-firacode-nerd
 i3lock-color-git
 imv
 jq
@@ -37,7 +37,11 @@ qt6ct
 rofi
 telegram-desktop
 thunar
-ttf-jetbrains-mono
+thunar-archive-plugin
+file-roller-linuxmint
 xclip
 xidlehook
 zsh
+kanagawa-gtk-theme-git
+unrar
+unzip

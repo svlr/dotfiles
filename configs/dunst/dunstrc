@@ -7,9 +7,9 @@ transparency = 0
 padding = 12
 horizontal_padding = 12
 frame_width = 2
-frame_color = "#2a2a2e"
-corner_radius = 8
-font = JetBrainsMono 14
+frame_color = "#4F2C2D"
+corner_radius = 12
+font = FiraCode Nerd Font 14
 line_height = 0
 format = "<b>%s</b>\n%b"
 sort = yes
@@ -35,17 +35,18 @@ mouse_middle_click = do_action
 mouse_right_click = close_all
 
 [urgency_low]
-background = "#1e1e22"
-foreground = "#eaeaea"
+background = "#1F1F28"
+foreground = "#DCD7BA"
 timeout = 3
 
 [urgency_normal]
-background = "#1e1e22"
-foreground = "#eaeaea"
+background = "#1F1F28"
+foreground = "#DCD7BA"
+frame_color = "#4F2C2D"
 timeout = 5
 
 [urgency_critical]
-background = "#1e1e22"
-foreground = "#e46876"
-frame_color = "#e46876"
+background = "#1F1F28"
+foreground = "#C34043"
+frame_color = "#4F2C2D"
 timeout = 0

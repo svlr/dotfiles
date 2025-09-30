@@ -1,7 +1,7 @@
 #!/bin/bash
 
 i3lock \
-  -i /home/svlr/MyFiles/set_of_random_files/feh_wallpaper.png \
+  -i /home/svlr/MyFiles/wallpapers/wallpaper34.jpeg \
   --fill \
   --clock \
   --bar-indicator \

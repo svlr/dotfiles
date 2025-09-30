@@ -7,7 +7,7 @@ WALLPAPER_DIR = os.path.expanduser("~/MyFiles/wallpapers")
 all_pics = [
     os.path.join(WALLPAPER_DIR, f)
     for f in os.listdir(WALLPAPER_DIR)
-    if f.lower().endswith((".jpg", ".png"))
+    if f.lower().endswith((".jpg", ".png", ".jpeg"))
 ]
 
 chosen_pic = random.choice(all_pics)

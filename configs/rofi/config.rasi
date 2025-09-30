@@ -1,7 +1,93 @@
-@theme "~/.config/rofi/not-graphite.rasi"
-
 configuration {
     modi: "drun";
-    font: "JetBrains Mono 12";
+    font: "FiraCode Nerd Font 11";
+    display-drun: "";
+    sidebar-mode: false;
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: [MousePrimary];
 }
 
+@theme "/dev/null"
+
+* {
+    window-bg:        #12121C;     // SumiInk0
+    bg:               #1F1F28;     // SumiInk1
+    fg:               #DCD7BA;     // FujiWhite
+    accent:           #4F2C2D;     // AutumnRed
+    muted:            #C8C093;     // Renga
+    element-bg:       #2A2A37;     // SumiInk3
+
+    background-color: @bg;
+    text-color:       @fg;
+}
+
+window {
+    transparency:      "real";
+    border:            0px;
+    border-color:      @fg;
+    padding:           12px;
+    width:             38%;
+    location:          center;
+    background-color:  @window-bg;
+}
+
+prompt { enabled: false; }
+
+entry {
+    placeholder:           "fukuma mizushi";
+    expand:                true;
+    padding:               10px 14px;
+    background-color:      @bg;
+    placeholder-color:     @muted;
+    text-color:            @fg;
+    border:                2px;
+    border-color:          @fg;
+    border-radius:         4px;
+}
+
+inputbar {
+    children:              [ prompt, entry ];
+    background-color:      @bg;
+    text-color:            @fg;
+    expand:                false;
+    border-radius:         6px;
+    padding:               8px;
+}
+
+listview {
+    columns:               1;
+    lines:                 8;
+    cycle:                 false;
+    dynamic:               true;
+    layout:                vertical;
+    spacing:               6px;
+}
+
+mainbox {
+    children:              [ inputbar, listview ];
+    spacing:               8px;
+    padding:               10px;
+}
+
+element {
+    orientation:           vertical;
+    border-radius:         6px;
+    padding:               10px 12px;
+    background-color:      @element-bg;
+    text-color:            @fg;
+}
+
+element-text {
+    expand:                true;
+    vertical-align:        0.5;
+    margin:                0px 6px;
+    background-color:      inherit;
+    text-color:            inherit;
+}
+
+element selected {
+    background-color:      @accent;
+    text-color:            @fg;
+    border-radius:         6px;
+}

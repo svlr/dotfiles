@@ -5,7 +5,7 @@ set $menu rofi -show drun
 
 # ─── Внешний вид
 # Шрифт
-font pango:JetBrains Mono 11
+font pango:FiraCode Nerd Font 11
 # Бордеры
 default_border pixel 0
 default_floating_border pixel 0
@@ -21,14 +21,14 @@ gaps outer 0
 smart_gaps off
 
 # ─── Обои и настройки монитора
-exec_always feh --bg-fill ~/MyFiles/wallpapers/feh_wallpaper.png
+exec_always feh --bg-fill ~/MyFiles/wallpapers/wallpaper34.jpeg
 exec --no-startup-id bash -c 'sleep 2 && xrandr --output HDMI-2 --mode 1920x1080 --rate 120 --primary'
 
 # ─── Язык, повтор, сенса
-exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:caps_toggle"
-exec --no-startup-id xset r rate 500 50
+#exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:caps_toggle"
+#exec --no-startup-id xset r rate 500 50
 # Настройка мыши: flat сенса + скорость 0.5 для всех мышек
-exec --no-startup-id ~/MyFiles/usefull_scripts/mouse-sense.sh
+#exec --no-startup-id ~/MyFiles/usefull_scripts/mouse-sense.sh
 
 # --- Бар
 exec_always ~/.config/polybar/launch.sh
@@ -44,13 +44,14 @@ exec_always --no-startup-id dunst
 exec_always --no-startup-id nekoray
 exec_always --no-startup-id Telegram
 exec_always --no-startup-id ~/MyFiles/usefull_scripts/fixsteam.py
+exec_always --no-startup-id ~/MyFiles/usefull_scripts/xborder/xborders --c ~/MyFiles/usefull_scripts/xborder/example_config.json
 
 # ─── Энергосбережение + блокировка
 exec_always --no-startup-id xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
-  --timer 1800 "~/MyFiles/usefull_scripts/lockscreen.sh" "" \
-  --timer 3600 "systemctl suspend" ""
+  --timer 1400 "~/MyFiles/usefull_scripts/lockscreen.sh" "" \
+  --timer 1500 "systemctl suspend" ""
 
 # Отключить автоматическое выключение экрана
 exec --no-startup-id xset s off
@@ -86,20 +87,10 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym Mod1+h move left
+bindsym Mod1+j move down
+bindsym Mod1+k move up
+bindsym Mod1+l move right
 
 # --- Управление поведением окон
 floating_modifier $mod
@@ -115,11 +106,11 @@ mode "resize" {
 # Вход в режим ресайза
 bindsym $mod+r mode "resize"
 # Тоггл режима floating
-bindsym $mod+Shift+space floating toggle
+bindsym F2 floating toggle
 # Тоггл fullscreen
-bindsym $mod+Shift+f fullscreen toggle
+bindsym F3 fullscreen toggle
 # scratchpad
-bindsym Mod1+s move to scratchpad
+bindsym F4 move to scratchpad
 #bindsym $mod+a scratchpad show
 bindsym Mod1+a exec --no-startup-id ~/MyFiles/usefull_scripts/scratchpad-rofi.py
 # ─── Рабочие пространства
