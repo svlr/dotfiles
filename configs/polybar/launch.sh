@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# Kill existing bars
+# Kill existing polybar instances
 pkill -x polybar
 
-# Wait until polybar processes are gone
+# Wait until they're fully terminated
 while pgrep -x polybar >/dev/null; do sleep 0.1; done
 
-# Start main bar
-MONITOR=$(xrandr --query | grep " connected" | cut -d" " -f1 | head -n1)
-MONITOR=$MONITOR polybar mybar &
+# Define monitors
+MAIN=HDMI-A-0
+SIDE=HDMI-1
 
+# Launch bars
+MONITOR=$MAIN polybar topbar &
+MONITOR=$SIDE polybar sidepanel &

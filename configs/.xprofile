@@ -5,7 +5,8 @@ xsetroot -cursor_name left_ptr
 
 # QT-темы
 export QT_QPA_PLATFORMTHEME=qt5ct
-export QT_STYLE_OVERRIDE=qt5ct
+export QT_STYLE_OVERRIDE=kvantum
+export QT6CT_PLATFORMTHEME=qt6ct
 # Gtk-темы
 export GTK_THEME=Kanagawa-Yellow-Dark
 export GTK_CSD=0

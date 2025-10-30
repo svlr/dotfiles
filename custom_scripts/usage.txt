@@ -1,1 +1,0 @@
-place all scripts at /home/user/MyFiles/usefull_scripts

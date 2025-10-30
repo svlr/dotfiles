@@ -21,8 +21,10 @@ gaps outer 0
 smart_gaps off
 
 # ─── Обои и настройки монитора
+exec_always --no-startup-id autorandr --change
 exec_always feh --bg-fill ~/MyFiles/wallpapers/wallpaper34.jpeg
-exec --no-startup-id bash -c 'sleep 2 && xrandr --output HDMI-2 --mode 1920x1080 --rate 120 --primary'
+set $fm HDMI-2
+set $sm HDMI-1
 
 # ─── Язык, повтор, сенса
 #exec --no-startup-id setxkbmap -layout "us,ru" -option "grp:caps_toggle"
@@ -71,10 +73,13 @@ bindsym Mod1+e exec bash -c 'reboot'
 bindsym $mod+v exec --no-startup-id clipmenu
 bindsym $mod+Shift+c exec --no-startup-id pkexec ~/MyFiles/usefull_scripts/clear-dust-in-system
 bindsym Mod1+Right exec --no-startup-id ~/MyFiles/usefull_scripts/wallpapers.py
+bindsym F8 exec --no-startup-id ~/MyFiles/usefull_scripts/updatedisplay.sh
 
 # ─── Скрины и запись экрана
 bindsym Home exec maim -s | xclip -selection clipboard -t image/png
 bindsym Shift+Home exec maim -s ~/Pictures/Screenshots/$(date +%F_%T).png
+bindsym Mod1+Home exec maim | xclip -selection clipboard -t image/png
+bindsym Mod1+Shift+Home exec maim ~/Pictures/Screenshots/$(date +%F_%T).png
 
 # ─── Громкость
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
@@ -114,38 +119,68 @@ bindsym F4 move to scratchpad
 #bindsym $mod+a scratchpad show
 bindsym Mod1+a exec --no-startup-id ~/MyFiles/usefull_scripts/scratchpad-rofi.py
 # ─── Рабочие пространства
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+workspace 1 output $fm
+workspace 2 output $fm
+workspace 3 output $fm
+workspace 4 output $fm
+workspace 5 output $fm
+workspace 6 output $fm
+workspace 7 output $fm
+workspace 8 output $fm
+workspace 9 output $fm
+workspace 10 output $fm
+workspace 11 output $sm
+workspace 12 output $sm
+workspace 13 output $sm
+workspace 14 output $sm
+workspace 15 output $sm
+workspace 16 output $sm
+workspace 17 output $sm
+workspace 18 output $sm
+workspace 19 output $sm
+workspace 20 output $sm
 
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym Mod1+1 workspace 11
+bindsym Mod1+2 workspace 12
+bindsym Mod1+3 workspace 13
+bindsym Mod1+4 workspace 14
+bindsym Mod1+5 workspace 15
+bindsym Mod1+6 workspace 16
+bindsym Mod1+7 workspace 17
+bindsym Mod1+8 workspace 18
+bindsym Mod1+9 workspace 19
+bindsym Mod1+0 workspace 20
 
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+bindsym Mod1+Shift+1 move container to workspace 11
+bindsym Mod1+Shift+2 move container to workspace 12
+bindsym Mod1+Shift+3 move container to workspace 13
+bindsym Mod1+Shift+4 move container to workspace 14
+bindsym Mod1+Shift+5 move container to workspace 15
+bindsym Mod1+Shift+6 move container to workspace 16
+bindsym Mod1+Shift+7 move container to workspace 17
+bindsym Mod1+Shift+8 move container to workspace 18
+bindsym Mod1+Shift+9 move container to workspace 19
+bindsym Mod1+Shift+0 move container to workspace 20
 
 # ─── Правила окон
 for_window [class="nekoray"] floating enable, move to scratchpad

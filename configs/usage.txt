@@ -1,2 +1,0 @@
-just place all this at /home/user/.config
-exclude .xprofile and .zshrc; place them at /home/user/
