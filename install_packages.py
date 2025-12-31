@@ -4,18 +4,15 @@ from pathlib import Path
 import subprocess
 import sys
 
-# === CONSTANTS === #
 PKG_FILE = Path("packages.txt")
 
 
 def fail(message: str):
-    """Выводит сообщение об ошибке и завершает программу."""
-    print(f"[!] Ошибка: {message}")
+    print(f"[ERROR] {message}")
     sys.exit(1)
 
 
 def get_required_packages() -> list:
-    """Считывает список пакетов из файла packages.txt, исключая комментарии и пустые строки."""
     try:
         with open(PKG_FILE, "r", encoding="utf-8") as f:
             return [
@@ -24,11 +21,10 @@ def get_required_packages() -> list:
                 if line.strip() and not line.strip().startswith("#")
             ]
     except FileNotFoundError:
-        fail("Файл packages.txt не найден!")
+        fail("packages.txt file not found.")
 
 
 def is_package_installed(pkg: str) -> bool:
-    """Проверяет, установлен ли пакет через yay -Qi <pkg>."""
     result = subprocess.run(
         ["yay", "-Qi", pkg],
         stdout=subprocess.DEVNULL,
@@ -38,12 +34,10 @@ def is_package_installed(pkg: str) -> bool:
 
 
 def get_missing_packages(required: list) -> list:
-    """Возвращает список пакетов, которые не установлены в системе."""
     return [pkg for pkg in required if not is_package_installed(pkg)]
 
 
 def prompt_yes_no(prompt: str) -> bool:
-    """Универсальный ввод подтверждения y/n"""
     while True:
         answer = input(f"{prompt} (y/n): ").strip().lower()
         if answer == "y":
@@ -51,43 +45,43 @@ def prompt_yes_no(prompt: str) -> bool:
         elif answer == "n":
             return False
         else:
-            print("🚫 Введите 'y' или 'n'.")
+            print("Invalid input. Please enter 'y' or 'n'.")
 
 
 def install_packages(packages: list):
     try:
-        result = subprocess.run(["yay", "-S", "--needed"] + packages, check=True)
-        print("\n[✓] Установка завершена!")
+        subprocess.run(["yay", "-S", "--needed"] + packages, check=True)
+        print("\n[SUCCESS] Package installation completed.")
     except subprocess.CalledProcessError:
-        print("\n⚠️ Возник конфликт при установке пакетов через yay.")
+        print("\n[WARNING] A conflict occurred during package installation.")
         print(
-            "Попробуйте удалить конфликтующие пакеты вручную и запустить скрипт снова."
+            "Please resolve conflicting packages manually and run the script again."
         )
         sys.exit(1)
 
 
 def main():
-    print("[*] Загружаю список зависимостей из packages.txt...")
+    print("[INFO] Loading dependency list from packages.txt...")
     required_packages = get_required_packages()
-    print(f"[+] Требуемых пакетов: {len(required_packages)}")
+    print(f"[INFO] Total required packages: {len(required_packages)}")
 
-    print("[*] Определяю, какие пакеты нужно установить...")
+    print("[INFO] Checking for missing packages...")
     missing = get_missing_packages(required_packages)
-    print(f"[+] Недостающих пакетов: {len(missing)}")
+    print(f"[INFO] Missing packages: {len(missing)}")
 
     if not missing:
-        print("[✓] Все необходимые пакеты уже установлены.")
+        print("[OK] All required packages are already installed.")
         return
 
-    print("\n📦 К установке подготовлены следующие пакеты:\n")
+    print("\nThe following packages will be installed:\n")
     for pkg in missing:
         print(f" - {pkg}")
     print()
 
-    if prompt_yes_no("✅ Установить недостающие пакеты?"):
+    if prompt_yes_no("Install missing packages?"):
         install_packages(missing)
     else:
-        print("🚫 Установка отменена пользователем.")
+        print("Installation cancelled by user.")
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-# Пути
+# Paths
 REPO_DIR = Path.cwd()
 CONFIGS_DIR = REPO_DIR / "configs"
 CUSTOM_SCRIPTS_DIR = REPO_DIR / "custom_scripts"
@@ -25,7 +25,7 @@ OH_MY_ZSH_INSTALLER = (
 )
 
 
-# Подтверждение
+# User confirmation
 def ask_user(prompt: str) -> bool:
     while True:
         ans = input(prompt).strip().lower()
@@ -33,142 +33,148 @@ def ask_user(prompt: str) -> bool:
             return True
         elif ans == "n":
             return False
-        print("🚫 Введите y или n.")
+        print("Invalid input. Please enter y or n.")
 
 
-# Бэкап
+# Backup
 def backup_configs():
-    print("\n💾 Делаю резервную копию старых конфигов...")
+    print("\nCreating backup of existing configuration files...")
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Бэкап .zshrc и .xprofile
+    # Backup .zshrc and .xprofile
     for file in [ZSHRC, XPROFILE]:
         if file.exists():
             dest = BACKUP_DIR / file.name
-            print(f"→ Бэкап {file} → {dest}")
+            print(f"Backing up {file} -> {dest}")
             shutil.copy2(file, dest)
 
-    # Бэкап каталогов из ~/.config
+    # Backup directories from ~/.config
     for item in CONFIGS_DIR.iterdir():
         if item.name in EXCLUDE_FILES or not item.is_dir():
             continue
         target_path = CONFIG_TARGET / item.name
         if target_path.exists():
             dest = BACKUP_DIR / ".config" / item.name
-            print(f"→ Бэкап {target_path} → {dest}")
+            print(f"Backing up {target_path} -> {dest}")
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copytree(target_path, dest, dirs_exist_ok=True)
 
-    print("✅ Бэкап завершён.\n")
+    print("Backup completed.\n")
 
 
-# Проверка и установка Oh My Zsh
+# Oh My Zsh check and install
 def oh_my_zsh_installed() -> bool:
     return ZSHRC.exists() and "oh-my-zsh" in ZSHRC.read_text()
 
 
 def install_oh_my_zsh():
-    print("→ Устанавливаю Oh My Zsh...")
+    print("Installing Oh My Zsh...")
     cmd = (
         f'sh -c "$(wget -qO- {OH_MY_ZSH_INSTALLER})" "" '
         "--unattended --skip-chsh --keep-zshrc"
     )
     subprocess.run(cmd, shell=True, check=True)
+
     with open("/etc/shells", "r") as f:
         shells = [
             line.strip() for line in f if line.strip() and not line.startswith("#")
         ]
+
     zsh_path = next((s for s in shells if s.endswith("/zsh")), None)
     if zsh_path:
         subprocess.run(f"chsh -s {zsh_path}", shell=True, check=True)
-        print(f"→ Установлен {zsh_path} как shell по умолчанию.")
+        print(f"Default shell set to {zsh_path}.")
     else:
-        print("⚠️ Zsh не найден в /etc/shells. chsh не выполнен.")
+        print("Warning: zsh was not found in /etc/shells. chsh was not executed.")
 
 
-# Установка конфигов
+# Install configs
 def install_configs():
-    print("\n📂 Установка конфигов...\n")
+    print("\nInstalling configuration files...\n")
 
     if not oh_my_zsh_installed():
         install_oh_my_zsh()
     else:
-        print("→ Oh My Zsh уже установлен, пропускаю установку.\n")
+        print("Oh My Zsh is already installed. Skipping.\n")
 
-    # Копирование .zshrc и .xprofile
+    # Copy .zshrc and .xprofile
     for name in [".zshrc", ".xprofile"]:
         src = CONFIGS_DIR / name
         dest = HOME / name
         if src.exists():
-            print(f"→ Копирую {name} → {dest}")
+            print(f"Copying {name} -> {dest}")
             shutil.copy(src, dest)
 
-    # Копирование директорий в ~/.config
+    # Copy directories to ~/.config
     for item in CONFIGS_DIR.iterdir():
         if item.name in EXCLUDE_FILES or item.name in {".zshrc", ".xprofile"}:
             continue
         if item.is_dir():
             dest = CONFIG_TARGET / item.name
-            print(f"→ Копирую директорию {item.name} → {dest}")
+            print(f"Copying directory {item.name} -> {dest}")
             if dest.exists():
                 shutil.rmtree(dest)
             shutil.copytree(item, dest)
 
-    print("\n✅ Конфиги установлены.\n")
+    print("\nConfiguration files installed.\n")
 
 
-# Установка скриптов
+# Install custom scripts
 def install_scripts():
-    print("\n📂 Установка кастомных скриптов...\n")
+    print("\nInstalling custom scripts...\n")
     SCRIPT_TARGET.mkdir(parents=True, exist_ok=True)
 
     for script in CUSTOM_SCRIPTS_DIR.iterdir():
         if script.name in EXCLUDE_FILES or not script.is_file():
             continue
         dest = SCRIPT_TARGET / script.name
-        print(f"→ Копирую {script.name} → {dest}")
+        print(f"Copying {script.name} -> {dest}")
         shutil.copy(script, dest)
         dest.chmod(0o755)
 
-    print("\n✅ Кастомные скрипты установлены.")
+    print("\nCustom scripts installed.")
 
 
-# Установка обоев
+# Install wallpapers
 def install_wallpapers():
-    print("\n🖼️  Установка обоев...\n")
+    print("\nInstalling wallpapers...\n")
     WALL_TARGET.mkdir(parents=True, exist_ok=True)
 
     for wallpaper in WALLPAPER_DIR.iterdir():
         if wallpaper.name in EXCLUDE_FILES or not wallpaper.is_file():
             continue
         dest = WALL_TARGET / wallpaper.name
-        print(f"→ Копирую {wallpaper.name} → {dest}")
+        print(f"Copying {wallpaper.name} -> {dest}")
         shutil.copy(wallpaper, dest)
 
-    print("\n✅ Обои установлены.")
+    print("\nWallpapers installed.")
 
 
-# Главный запуск
+# Main
 def main():
     if ask_user(
-        "⚠️  Это перезапишет ваши конфиги в ~/.config, .zshrc и .xprofile. Сделать бэкап и продолжить? (y/n): "
+        "This will overwrite configuration files in ~/.config, .zshrc and .xprofile. "
+        "Create a backup and continue? (y/n): "
     ):
         backup_configs()
         install_configs()
     else:
-        print("🚫 Установка конфигов отменена.")
+        print("Configuration installation cancelled.")
 
     if ask_user(
-        "ℹ️  Установить кастомные скрипты в ~/MyFiles/usefull_scripts? (Это не влияет на систему) (y/n): "
+        "Install custom scripts to ~/MyFiles/usefull_scripts? "
+        "(This does not affect the system) (y/n): "
     ):
         install_scripts()
     else:
-        print("🕳️  Установка скриптов пропущена.")
+        print("Custom scripts installation skipped.")
 
-    if ask_user("🌄 Установить обои из wallpapers в ~/MyFiles/wallpapers? (y/n): "):
+    if ask_user(
+        "Install wallpapers from ./wallpapers to ~/MyFiles/wallpapers? (y/n): "
+    ):
         install_wallpapers()
     else:
-        print("🕳️  Установка обоев пропущена.")
+        print("Wallpaper installation skipped.")
 
 
 if __name__ == "__main__":
